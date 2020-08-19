@@ -1,26 +1,31 @@
-# vue-instantsearch-v2-starter
+# Vue Router + Algolia
 
 ## Project setup
-```
-yarn install
+
+```bash
+npm install
 ```
 
 ### Compiles and hot-reloads for development
-```
-yarn run serve
+
+```bash
+npm run serve
 ```
 
 ### Compiles and minifies for production
-```
-yarn run build
+
+```bash
+npm run build
 ```
 
 ### Run your tests
-```
-yarn run test
+
+```bash
+npm run test
 ```
 
 ### Lints and fixes files
-```
-yarn run lint
+
+```bash
+npm run lint
 ```
