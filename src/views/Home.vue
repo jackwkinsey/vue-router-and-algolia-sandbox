@@ -1,12 +1,12 @@
 <template>
   <div>
     <header class="header">
-      <h1 class="header-title"><a href="/">Vue InstantSearch v2 starter</a></h1>
+      <h1 class="header-title">
+        <a href="/">Vue InstantSearch v2 starter</a>
+      </h1>
       <p class="header-subtitle">
         using
-        <a href="https://github.com/algolia/vue-instantsearch">
-          Vue InstantSearch
-        </a>
+        <a href="https://github.com/algolia/vue-instantsearch">Vue InstantSearch</a>
       </p>
     </header>
 
@@ -18,19 +18,25 @@
       >
         <div class="search-panel">
           <div class="search-panel__filters">
-            <ais-refinement-list attribute="brand" searchable />
+            <ais-refinement-list attribute="brand" searchable/>
           </div>
 
           <div class="search-panel__results">
-            <ais-search-box placeholder="Search here…" class="searchbox" />
+            <ais-search-box placeholder="Search here…" class="searchbox"/>
             <ais-hits>
               <template slot="item" slot-scope="{ item }">
-                <h1><ais-highlight :hit="item" attribute="name" /></h1>
-                <p><ais-highlight :hit="item" attribute="description" /></p>
+                <h1>
+                  <ais-highlight :hit="item" attribute="name"/>
+                </h1>
+                <p>
+                  <ais-highlight :hit="item" attribute="description"/>
+                </p>
               </template>
             </ais-hits>
 
-            <div class="pagination"><ais-pagination /></div>
+            <div class="pagination">
+              <ais-pagination/>
+            </div>
           </div>
         </div>
       </ais-instant-search>
@@ -39,7 +45,7 @@
 </template>
 
 <script>
-import algoliasearch from 'algoliasearch/lite';
+import algoliasearch from 'algoliasearch';
 import 'instantsearch.css/themes/algolia-min.css';
 
 export default {
@@ -86,18 +92,23 @@ export default {
         },
         stateMapping: {
           stateToRoute(uiState) {
-            return {
-              query: uiState.instant_search.query,
+            console.log('stateToRoute called with:', uiState);
+            const routeState = {
+              query: uiState.demo_ecommerce.query,
               brands:
-                uiState.instant_search.refinementList &&
-                uiState.instant_search.refinementList.brand &&
-                uiState.instant_search.refinementList.brand.join('~'),
-              page: uiState.instant_search.page,
+                uiState.demo_ecommerce.refinementList &&
+                uiState.demo_ecommerce.refinementList.brand &&
+                uiState.demo_ecommerce.refinementList.brand.join('~'),
+              page: uiState.demo_ecommerce.page,
             };
+
+            console.log('[stateToRoute] routeState:', routeState);
+            return routeState;
           },
           routeToState(routeState) {
-            return {
-              instant_search: {
+            console.log('routeToState called with:', routeState);
+            const uiState = {
+              demo_ecommerce: {
                 query: routeState.query,
                 refinementList: {
                   brand: routeState.brands && routeState.brands.split('~'),
@@ -105,6 +116,8 @@ export default {
                 page: routeState.page,
               },
             };
+            console.log('[routeToState] uiState:', uiState);
+            return uiState;
           },
         },
       },
